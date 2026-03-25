@@ -1,0 +1,152 @@
+//////////////////////////////////////////////////////////////////
+//
+//   Header File Inclusion
+//
+//////////////////////////////////////////////////////////////////
+
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<stdbool.h>
+#include<string.h>
+
+
+//////////////////////////////////////////////////////////////////
+//
+//   UserDefined Macros
+//
+//////////////////////////////////////////////////////////////////
+
+
+//Maximum file size that allow in file size
+#define MAXFILESIZE     50
+//
+#define MAXOPENFILES    20
+//
+#define MAXINODE        5
+//
+#define READ            1
+//
+#define WRITE           2
+//
+#define EXECUTE         4
+//
+#define START           0
+#define CURRENT         1
+#define END             0
+
+#define EXECUTE_SUCCESS 0
+
+//////////////////////////////////////////////////////////////////
+//
+//   UserDefined Structures
+//
+//////////////////////////////////////////////////////////////////
+
+
+//////////////////////////////////////////////////////////////////
+//
+//   Structure name : BootBlock
+//   Description    : Holds the information to boot of os
+//
+//////////////////////////////////////////////////////////////////
+
+#pragma pack(1)
+struct BootBlock
+{
+    char Information[100];
+};
+
+
+//////////////////////////////////////////////////////////////////
+//
+//   Structure name : SuperBlock
+//   Description    : Holds the information about fileSystem
+//
+//////////////////////////////////////////////////////////////////
+
+#pragma pack(1)
+struct SuperBlock
+{
+    int TotalInode;
+    int FreeInode;
+};
+
+
+//////////////////////////////////////////////////////////////////
+//
+//   Structure name : Inode
+//   Description    : Holds the information about file
+//
+//////////////////////////////////////////////////////////////////
+
+
+#pragma pack(1)
+struct Inode
+{
+    char FileName[20];
+    int iNodeNumber;
+    int FileSize;
+    int ActualFileSize;
+    int RefrenceCount;
+    int Permission;
+    char *Buffer;
+    struct iNode * next;
+
+};
+
+typedef struct Inode  INODE;
+typedef struct Inode * PINODE;
+typedef struct Inode * PPINODE;
+
+//////////////////////////////////////////////////////////////////
+//
+//   Structure name : FileTable
+//   Description    : Holds the information about opened file
+//
+//////////////////////////////////////////////////////////////////
+
+
+struct FileTable
+{
+    int ReadOffset;
+    int WriteOffset;
+    int mode;
+    PINODE ptrinode;
+
+};
+
+
+typedef FileTable FILETABLE;
+typedef FileTable * PFILETABLE;
+
+
+//////////////////////////////////////////////////////////////////
+//
+//   Structure name : UAREA
+//   Description    : Holds the information about process file
+//
+//////////////////////////////////////////////////////////////////
+
+
+struct UAREA
+{
+    char ProcessName[20];  //name of exe
+    PFILETABLE UFDT[MAXOPENFILES];
+};
+
+
+
+//////////////////////////////////////////////////////////////////
+//
+//   Entry point function of the project
+//
+//////////////////////////////////////////////////////////////////
+
+
+int main()
+{
+
+    return 0;
+}
